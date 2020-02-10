@@ -1,9 +1,9 @@
 import { getInitialData } from '../utils/api'
-import { receiveUsers, newQuestionFromUser } from './users'
-import { receiveQuestions, addQuestion } from './questions'
+import { receiveUsers, newQuestionFromUser, addAnswerToUser, removeAnswerFromUser } from './users'
+import { receiveQuestions, addQuestion, addVoteToQuestion, removeVoteFtomQuestion } from './questions'
 import { setAuthedUser } from './authedUser'
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { _saveQuestion} from '../utils/_DATA'
+import { _saveQuestion, _saveQuestionAnswer} from '../utils/_DATA'
 
 const AUTHED_ID = 'sarahedo';
 
@@ -37,4 +37,23 @@ export function handleNewQuestion(optionOneText,optionTwoText){
       dispatch(hideLoading());
     });
   };
+}
+
+export function handleNewAnswer(userId,questionId,vote){
+
+  return (dispatch)=>{
+    dispatch(addVoteToQuestion(questionId,userId,vote));
+    dispatch(addAnswerToUser(userId,questionId,vote))
+    console.log("save",userId,questionId,vote);
+    return _saveQuestionAnswer({
+      authedUser:userId,
+      qid:questionId,
+      answer:vote
+      }).catch((e)=>{
+        console.warn('Error in handleNewAnswer: ', e);
+        dispatch(removeAnswerFromUser(userId,questionId));
+        dispatch(removeVoteFtomQuestion(questionId,userId));
+        alert('The was an error submitting your vote. Try again.')
+      })
+  }
 }

@@ -1,11 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleNewAnswer } from '../actions/shared'
 
 class Question extends Component{
 
   state ={
     selectedOption:'optionOne'
   };
+
+  handleChange = (value) => (
+    this.setState({
+      selectedOption : value
+    })
+  );
+
+  handleSubmitNewAnswer = (e) =>{
+    e.preventDefault();
+    const { selectedOption } = this.state;
+    const {authedUser,question,dispatch} = this.props;
+
+    dispatch(handleNewAnswer(authedUser,question.id,selectedOption));
+
+    this.setState({
+      selectedOption:'optionOne'
+    });
+  }
 
   renderSmallQuestion = () =>(
     <div>
@@ -40,7 +59,7 @@ class Question extends Component{
         <label>
           <input type="radio" value="optionOne" 
             checked={this.state.selectedOption === 'optionOne'} 
-            onChange={()=>alert('optionOne')} />
+            onChange={(e)=>this.handleChange(e.target.value)} />
               {this.props.question.optionOne.text}
         </label>
       </div>
@@ -48,11 +67,11 @@ class Question extends Component{
         <label>
           <input type="radio" value="optionTwo" 
             checked={this.state.selectedOption === 'optionTwo'} 
-            onChange={()=>alert('optionTwo')} />
+            onChange={(e)=>this.handleChange(e.target.value)} />
               {this.props.question.optionTwo.text}
         </label>
       </div>
-      <button>Submit</button>
+      <button onClick={this.handleSubmitNewAnswer}>Submit</button>
     </div>
   );
 
@@ -65,7 +84,7 @@ class Question extends Component{
         backgroundImage:`url(${this.props.author.avatarURL})` }}>
       </div>
       {['optionOne','optionTwo'].map((option)=>(
-        <div>
+        <div key={option}>
           Would you rather {this.props.question[option].text}?
           {this.props.answer===option && <div>Your Choice</div>}
           <div>{100*this.props.question[option].votes.length/this.props.sum}%</div>

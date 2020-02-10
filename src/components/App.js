@@ -18,7 +18,7 @@ class App extends Component{
         <LoadingBar/>
         {this.props.loading
           ? null
-          :<NewQuestion/>
+          :<Question id={'vthrdm985a262al8qx3do'} fullrender={true}/>
         }
       </div>
     );
