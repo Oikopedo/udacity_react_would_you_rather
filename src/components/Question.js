@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleNewAnswer } from '../actions/shared'
+import { Link } from 'react-router-dom';
 
 class Question extends Component{
 
@@ -40,7 +41,7 @@ class Question extends Component{
       <div>
         ...{this.props.question.optionOne.text.substring(0,15) }...
       </div>
-      <button >View Poll</button>
+      <Link to={`/question/${this.props.question.id}`}><button >View Poll</button></Link>
     </div>
   );
 

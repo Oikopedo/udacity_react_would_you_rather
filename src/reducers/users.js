@@ -56,7 +56,7 @@ function addAnswer(state,action){
 function removeAnswer(state,action){
   const {questionId,userId} =action;
   const answers={}
-  state[userId].answers.entries().forEach((kv)=>{
+  Object.entries(state[userId].answers).forEach((kv)=>{
     kv[0]!==questionId && (answers[kv[0]]=kv[1])
   });
   const user = {

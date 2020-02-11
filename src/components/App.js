@@ -3,8 +3,11 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import  LoadingBar  from 'react-redux-loading'
-import Question from './Question'
 import NewQuestion from './NewQuestion'
+import LeaderBoard from './LeaderBoard'
+import { BrowserRouter, Route } from 'react-router-dom'
+import QuestionPage from './QuestionPage'
+import Nav from './Nav'
 
 
 class App extends Component{
@@ -14,13 +17,19 @@ class App extends Component{
 
   render(){
     return (
-      <div>
+      <BrowserRouter>
         <LoadingBar/>
+        <Nav/>
         {this.props.loading
           ? null
-          :<Question id={'vthrdm985a262al8qx3do'} fullrender={true}/>
+          :<div>
+            <Route exact path='/' component={Dashboard}/>
+            <Route path='/new' component={NewQuestion}/>
+            <Route path='/leaderboard' component={LeaderBoard}/>
+            <Route path='/question/:id' component={QuestionPage}/>
+          </div>
         }
-      </div>
+      </BrowserRouter>
     );
   }
 }
