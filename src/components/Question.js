@@ -95,10 +95,11 @@ class Question extends Component{
   );
 
   render(){
+    const { question } = this.props
     console.log(this.props);
     return(
-      !this.props.fullrender ? this.renderSmallQuestion()
-      : this.props.answer ? this.renderAnsweredQuestion():this.renderUnansweredQuestion()
+      question ? !this.props.fullrender ? this.renderSmallQuestion()
+      : this.props.answer ? this.renderAnsweredQuestion():this.renderUnansweredQuestion():<div>404 Question Not Found</div>
     );
   }
 }
@@ -106,9 +107,9 @@ class Question extends Component{
 
 function mapStateToProps({ authedUser, users, questions}, { id,fullrender }){
   const question=questions[id];
-  const author=users[question.author];
+  const author=question && users[question.author];
   const answer= users[authedUser].answers[id];
-  const sum = question.optionOne.votes.length+question.optionTwo.votes.length;
+  const sum = question && question.optionOne.votes.length+question.optionTwo.votes.length;
 
   return{
     authedUser,
