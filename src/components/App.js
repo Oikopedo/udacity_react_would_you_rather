@@ -8,6 +8,8 @@ import LeaderBoard from './LeaderBoard'
 import { BrowserRouter, Route } from 'react-router-dom'
 import QuestionPage from './QuestionPage'
 import Nav from './Nav'
+import SignOut from './SignOut'
+import SignIn from './SignIn'
 
 
 class App extends Component{
@@ -16,13 +18,15 @@ class App extends Component{
   }
 
   render(){
+    const {loading,signin}=this.props
     return (
       <BrowserRouter>
         <LoadingBar/>
         <Nav/>
-        {this.props.loading
+        <SignOut/>
+        {loading
           ? null
-          :<div>
+          : signin ?<SignIn/>:<div>
             <Route exact path='/' component={Dashboard}/>
             <Route path='/new' component={NewQuestion}/>
             <Route path='/leaderboard' component={LeaderBoard}/>
@@ -34,9 +38,10 @@ class App extends Component{
   }
 }
 
-function mapStateToProps({ authedUser }){
+function mapStateToProps({ authedUser,users }){
   return {
-    loading:authedUser===null
+    loading:users.length===0,
+    signin:authedUser===null
   };
 }
 
