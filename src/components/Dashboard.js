@@ -18,23 +18,31 @@ class Dashboard extends Component{
     console.log('Dashboard: ',this.props);
     console.log('state: ',this.state);
     return(
-      <div>
-        <h3>Questions</h3>
-        <div onClick={()=> this.showUnanswered(true)}>
-          Unanswered Questions
+      <div className="foto">
+        <div className="foto-option">
+          <div className="answers">
+            <div className="questions">
+              <button class="unanswered" onClick={()=> this.showUnanswered(true)}>
+                Unanswered Questions
+              </button>
+            </div>
+            <div class="qwestionable">
+              <button class="answered" onClick={()=>this.showUnanswered(false)}>
+                Answered Qwestions
+              </button>
+            </div>
+          </div>
+          
+          <ul>
+            {
+              this.props[this.state.showUnanswered?'unanswered':'answered'].map((id)=>(
+                <li key={id}>
+                  <Question id={id} fullrender={false}/>
+                </li>
+              )) 
+            }
+          </ul>
         </div>
-        <div onClick={()=>this.showUnanswered(false)}>
-          Answered Questions
-        </div>
-        <ul>
-          {
-            this.props[this.state.showUnanswered?'unanswered':'answered'].map((id)=>(
-              <li key={id}>
-                <Question id={id} fullrender={false}/>
-              </li>
-            )) 
-          }
-        </ul>
       </div>
     );
   }

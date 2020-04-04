@@ -29,50 +29,53 @@ class Question extends Component{
 
   renderSmallQuestion = () =>(
     <div>
-      <div>
-        {this.props.author.name} asks
-      </div>
-      <div style={{ width: 128, height: 128, 
-          backgroundImage:`url(${this.props.author.avatarURL})` }}>
-      </div>
-      <div>
-        Would you rather
-      </div>
-      <div>
-        ...{this.props.question.optionOne.text.substring(0,15) }...
-      </div>
-      <Link to={`/question/${this.props.question.id}`}><button >View Poll</button></Link>
+      <h3> {this.props.author.name} asks</h3>
+      <form className="border">
+        <div style={{ width: 128, height: 128, 
+            backgroundImage:`url(${this.props.author.avatarURL})` }}>
+        </div>
+        <p>Would you rather</p>
+        <a>
+          ...{this.props.question.optionOne.text.substring(0,15) }...
+        </a>
+        <div className="form-polling">
+          <Link to={`/question/${this.props.question.id}`}><button className="form-poll">View{'\u00A0'}Poll</button></Link>
+        </div>
+      </form>
     </div>
   );
 
   renderUnansweredQuestion = ()=>(
-    <div>
-      <div>
-        {this.props.author.name} asks
+    <div className="window">
+      <div className="window-model">
+        <h1>
+          {this.props.author.name} asks:
+        </h1>
+        <hr/>
+        <form className="ChoicesForm">
+          <div style={{ width: 128, height: 128, 
+              backgroundImage:`url(${this.props.author.avatarURL})` }}>
+          </div>
+          <p>Would you rather...</p>
+          <div className="option">
+            <label>
+              <input type="radio" value="optionOne" 
+                checked={this.state.selectedOption === 'optionOne'} 
+                onChange={(e)=>this.handleChange(e.target.value)} />
+                  {this.props.question.optionOne.text}
+            </label>
+            <label>
+              <input type="radio" value="optionTwo" 
+                checked={this.state.selectedOption === 'optionTwo'} 
+                onChange={(e)=>this.handleChange(e.target.value)} />
+                  {this.props.question.optionTwo.text}
+            </label>
+          </div>
+        </form>
+        <div className="form-button">
+            <button className="form-submit" onClick={this.handleSubmitNewAnswer}>Submit</button>
+        </div>
       </div>
-      <div style={{ width: 128, height: 128, 
-          backgroundImage:`url(${this.props.author.avatarURL})` }}>
-      </div>
-      <div>
-        Would you rather
-      </div>
-      <div className="radio">
-        <label>
-          <input type="radio" value="optionOne" 
-            checked={this.state.selectedOption === 'optionOne'} 
-            onChange={(e)=>this.handleChange(e.target.value)} />
-              {this.props.question.optionOne.text}
-        </label>
-      </div>
-      <div className="radio">
-        <label>
-          <input type="radio" value="optionTwo" 
-            checked={this.state.selectedOption === 'optionTwo'} 
-            onChange={(e)=>this.handleChange(e.target.value)} />
-              {this.props.question.optionTwo.text}
-        </label>
-      </div>
-      <button onClick={this.handleSubmitNewAnswer}>Submit</button>
     </div>
   );
 

@@ -40,40 +40,41 @@ class NewQuestion extends Component{
       return <Redirect to='/'/>
     } 
     return(
-      <div>
-        <div>
-          Create New Question
+      <div className="content">
+        <div className="content-model">
+          <h2>Create New Question</h2>
+          <hr/>
+          <a>Complete the Question</a>
+          <p>Would you rather</p>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <textarea
+                placeholder="Enter Option One Text Here"
+                value={optionOne}
+                onChange={(e)=>this.handleChange(e.target.value,'optionOne')}
+                className='form-group form-control'
+                maxLength={100}
+              />
+            </div>
+            <p>OR</p>
+            <div className="form-group">
+              <textarea
+                placeholder="Enter Option Two Text Here"
+                value={optionTwo}
+                onChange={(e)=>this.handleChange(e.target.value,'optionTwo')}
+                className='form-group form-control'
+                maxLength={100}
+              />
+            </div>
+            <div className="form-btn">
+              <button className="form-exit"
+                type='submit'
+                disabled={optionOne === '' || optionTwo===''}>
+                  Submit
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          Complete the Question
-        </div>
-        <div>
-          Would you rather
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <textarea
-            placeholder="Enter Option One Text Here"
-            value={optionOne}
-            onChange={(e)=>this.handleChange(e.target.value,'optionOne')}
-            className='textarea'
-            maxLength={100}
-          />
-          <div>
-            OR
-          </div>
-          <textarea
-            placeholder="Enter Option Two Text Here"
-            value={optionTwo}
-            onChange={(e)=>this.handleChange(e.target.value,'optionTwo')}
-            className='textarea'
-            maxLength={100}
-          />
-          <button
-            type='submit'
-            disabled={optionOne === '' || optionTwo===''}>
-              Submit
-          </button>
-        </form>
       </div>
     );  
   }

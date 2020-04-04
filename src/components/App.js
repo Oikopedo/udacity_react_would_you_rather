@@ -22,8 +22,11 @@ class App extends Component{
     return (
       <BrowserRouter>
         <LoadingBar/>
-        <Nav/>
-        <SignOut/>
+        <div className="main">
+          <Nav/>
+          <SignOut/>
+        </div>
+        <hr/>
         {loading
           ? null
           : signin ?<SignIn/>:<div>

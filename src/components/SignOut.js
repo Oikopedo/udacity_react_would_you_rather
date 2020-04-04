@@ -12,13 +12,13 @@ class SignOut extends Component{
   render(){
     const { user } = this.props
     return(
-      <div>
+      <div class="main-entrance">
         {user 
           ? (
-            <div>
+            <a>
               Hello {user.name}
-              <button onClick={this.handleSignOut}>SignOut</button>
-            </div>)
+              <button className="btn btn-entrance"onClick={this.handleSignOut}>SignOut</button>
+            </a>)
           : null}
       </div>
     )
