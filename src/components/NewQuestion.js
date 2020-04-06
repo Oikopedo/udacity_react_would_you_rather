@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { handleNewQuestion } from '../actions/shared'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import {Button,InputGroup,FormControl} from 'react-bootstrap'
+import { Button, InputGroup, FormControl } from 'react-bootstrap'
 
 class NewQuestion extends Component{
 
@@ -12,13 +12,11 @@ class NewQuestion extends Component{
     toHome:false
   };
 
-  handleChange = (value,id)=>{this.setState((currentstate)=>{
-    currentstate[id]=value;
-    return{
-      optionOne:currentstate.optionOne,
-      optionTwo:currentstate.optionTwo
-    };
-  })}
+  handleChange = (value,id) => {
+    this.setState({
+      [id] : value
+    });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -29,15 +27,15 @@ class NewQuestion extends Component{
     dispatch(handleNewQuestion(optionOne, optionTwo));
 
     this.setState(() => ({
-      optionOne: '',
-      optionTwo:'',
-      toHome:true
+      optionOne : '',
+      optionTwo : '',
+      toHome : true
     }));
   }
 
   render(){
-    const { optionOne, optionTwo,toHome }=this.state
-    if (toHome){
+    const { optionOne, optionTwo, toHome } = this.state
+    if ( toHome ){
       return <Redirect to='/'/>
     }
     return (
@@ -55,9 +53,9 @@ class NewQuestion extends Component{
           <InputGroup className="mb-3 mt-3">
             <FormControl
               placeholder="Enter Option One Text Here"
-              value={optionOne}
-              onChange={(e)=>this.handleChange(e.target.value,'optionOne')}
-              maxLength={100}
+              value={ optionOne }
+              onChange={ (e) => this.handleChange(e.target.value, 'optionOne') }
+              maxLength={ 100 }
             />
           </InputGroup>
         </div>
@@ -68,9 +66,9 @@ class NewQuestion extends Component{
           <InputGroup className="mb-3 mt-3">
             <FormControl
               placeholder="Enter Option Two Text Here"
-              value={optionTwo}
-              onChange={(e)=>this.handleChange(e.target.value,'optionTwo')}
-              maxLength={100}
+              value={ optionTwo }
+              onChange={ (e) => this.handleChange(e.target.value, 'optionTwo') }
+              maxLength={ 100 }
             />
           </InputGroup>
         </div>
@@ -79,8 +77,8 @@ class NewQuestion extends Component{
             variant="primary"
             size="lg"
             block
-            disabled={optionOne === '' || optionTwo===''}
-            onClick={this.handleSubmit}>
+            disabled={ optionOne === '' || optionTwo === '' }
+            onClick={ this.handleSubmit }>
               Submit
           </Button>
         </div>

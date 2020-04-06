@@ -6,30 +6,30 @@ import  LoadingBar  from 'react-redux-loading'
 import NewQuestion from './NewQuestion'
 import LeaderBoard from './LeaderBoard'
 import { BrowserRouter, Route } from 'react-router-dom'
-import QuestionPage from './QuestionPage'
+import Question from './Question'
 import Nave from './Nav'
 import SignIn from './SignIn'
 
 
 class App extends Component{
   componentDidMount(){
-    this.props.dispatch(handleInitialData());
+    this.props.handleInitialData();
   }
 
   render(){
-    const {loading,signin}=this.props
+    const { loading, signin }=this.props
     return (
       <BrowserRouter>
         <LoadingBar/>
         <Nave/>
         <div className="main">
-          {loading
+          { loading
             ? null
             : signin ?<SignIn/>:<div>
-              <Route exact path='/' component={Dashboard}/>
-              <Route path='/new' component={NewQuestion}/>
-              <Route path='/leaderboard' component={LeaderBoard}/>
-              <Route path='/question/:id' component={QuestionPage}/>
+              <Route exact path='/' component={ Dashboard }/>
+              <Route path='/add' component={ NewQuestion }/>
+              <Route path='/leaderboard' component={ LeaderBoard }/>
+              <Route path='/question/:id' component={ Question }/>
             </div>
           }
         </div>
@@ -38,11 +38,11 @@ class App extends Component{
   }
 }
 
-function mapStateToProps({ authedUser,users }){
+function mapStateToProps({ authedUser, users }){
   return {
     loading:users.length===0,
     signin:authedUser===null
   };
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps,{ handleInitialData })(App)
